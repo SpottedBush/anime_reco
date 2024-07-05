@@ -64,6 +64,6 @@ python recommend.py --user-id <user_id> --method <method>
 
 ## Dataset Source
 
-The dataset used for this project includes anime titles, user ratings, and metadata. You can download the dataset [here](https://www.kaggle.com/datasets/dbdmobile/myanimelist-dataset?select=users-score-2023.csv)
+The dataset used for this project includes anime titles, user ratings, and metadata. You can download the dataset [here](https://www.kaggle.com/datasets/dbdmobile/myanimelist-dataset?select=users-score-2023.csv).
 
 Ensure that the dataset files are placed in the `datasets/` directory at the root of the project.
