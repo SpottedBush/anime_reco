@@ -8,10 +8,7 @@ Welcome to the Anime Recommendation System project! This repository contains a m
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Data](#data)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Dataset Source](#dataset source)
 
 ## Introduction
 
@@ -60,11 +57,12 @@ To get recommendations via the CLI, run:
 
 ```bash
 python recommend.py --user-id <user_id> --method <method>
+```
 
 - `--user-id`: The ID of the user for whom to generate recommendations.
 - `--method`: The recommendation method to use (user_based, item_based, content_based, or hybrid).
 
-## Dataset source
+## Dataset Source
 
 The dataset used for this project includes anime titles, user ratings, and metadata. You can download the dataset [here](https://www.kaggle.com/datasets/dbdmobile/myanimelist-dataset?select=users-score-2023.csv)
 
