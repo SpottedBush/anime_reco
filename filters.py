@@ -35,4 +35,5 @@ def load_and_filter_data(user_path, item_path, threshold=1000, logging=False):
     item_df = pd.read_csv(item_path)
     if logging:
         print('Animes list loaded')
-    return filter_data(user_df, item_df, threshold)
+    return user_df, item_df
+    # return filter_data(user_df, item_df, threshold)
