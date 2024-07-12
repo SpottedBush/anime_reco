@@ -1,6 +1,6 @@
 import pandas as pd
 
-def filter_data(user_df, item_df, threshold):
+def filter_data(user_df, item_df):
     item_df.drop(columns=['Other name', 'Name', 'Synopsis', 'Source', 'Premiered', 'Status', 'Producers', 'Licensors', 'Duration'], inplace=True) # Drop unnecessary columns
     item_df.rename(columns={'English name': 'Name'}, inplace=True) # Rename 'English name' to 'Name'
     item_df = item_df.drop(item_df[item_df.eq('UNKNOWN').any(axis=1)].index) # Drop rows with 'UNKNOWN' values
@@ -9,12 +9,10 @@ def filter_data(user_df, item_df, threshold):
 
     user_df = user_df[user_df['anime_id'].isin(item_df['anime_id'])] # Only keep users that are in item_df
     user_counts = user_df['user_id'].value_counts() # Count the number of reviews per user
-    user_df = user_df[user_counts[user_df['user_id']] > threshold] # Only keep users with more than threshold reviews
     user_df = user_df[user_df['rating'] != 0] # Remove reviews with rating 0 because it is not a valid rating
     return user_df, item_df
-    
-    
-def load_and_filter_data(user_path, item_path, threshold=1000, filtering=True, logging=False):
+
+def load_and_filter_data(user_path, item_path, filtering=True, logging=False):
     """Load and filter data
 
     Args:
@@ -34,7 +32,7 @@ def load_and_filter_data(user_path, item_path, threshold=1000, filtering=True, l
     item_df = pd.read_csv(item_path)
     if logging:
         print('Animes list loaded')
-    return  filter_data(user_df, item_df, threshold) if filtering else (user_df, item_df)
+    return  filter_data(user_df, item_df) if filtering else (user_df, item_df)
 
 def sample_users(user_df, min_reviews=400, max_reviews=600, n_users=150):
     """Get a sample of users in the whole user_df
