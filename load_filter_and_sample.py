@@ -14,7 +14,7 @@ def filter_data(user_df, item_df, threshold):
     return user_df, item_df
     
     
-def load_and_filter_data(user_path, item_path, threshold=1000, logging=False):
+def load_and_filter_data(user_path, item_path, threshold=1000, filtering=True, logging=False):
     """Load and filter data
 
     Args:
@@ -34,7 +34,7 @@ def load_and_filter_data(user_path, item_path, threshold=1000, logging=False):
     item_df = pd.read_csv(item_path)
     if logging:
         print('Animes list loaded')
-    return filter_data(user_df, item_df, threshold)
+    return  filter_data(user_df, item_df, threshold) if filtering else (user_df, item_df)
 
 def sample_users(user_df, min_reviews=400, max_reviews=600, n_users=150):
     """Get a sample of users in the whole user_df
