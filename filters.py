@@ -8,12 +8,11 @@ def filter_data(user_df, item_df, threshold):
     item_df = item_df[item_df['anime_id'].isin(user_df['anime_id'])] # Only keep items that are in user_df
 
     user_df = user_df[user_df['anime_id'].isin(item_df['anime_id'])] # Only keep users that are in item_df
-    user_df = user_df[user_df['rating'] > 0] # Remove reviews with rating 0 because it is not a valid rating
     user_counts = user_df['user_id'].value_counts() # Count the number of reviews per user
-    user_counts = user_counts[user_counts >= threshold] # Filter users with more than threshold reviews
-    user_df = user_df[user_df['user_id'].isin(user_counts.index)] # Only keep users with more than threshold reviews
-
+    user_df = user_df[user_counts[user_df['user_id']] > threshold] # Only keep users with more than threshold reviews
+    user_df = user_df[user_df['rating'] != 0] # Remove reviews with rating 0 because it is not a valid rating
     return user_df, item_df
+    
     
 def load_and_filter_data(user_path, item_path, threshold=1000, logging=False):
     """Load and filter data
