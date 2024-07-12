@@ -34,5 +34,22 @@ def load_and_filter_data(user_path, item_path, threshold=1000, logging=False):
     item_df = pd.read_csv(item_path)
     if logging:
         print('Animes list loaded')
-    return user_df, item_df
-    # return filter_data(user_df, item_df, threshold)
+    return filter_data(user_df, item_df, threshold)
+
+def sample_users(user_df, min_reviews=400, max_reviews=600, n_users=150):
+    """Get a sample of users in the whole user_df
+
+    Args:
+        user_df pd.DataFrame: DataFrame containing user reviews
+        min_reviews (int, optional): Lower limit of reviews. Defaults to 400.
+        max_reviews (int, optional): Upper limit of reviews. Defaults to 600.
+        n_users (int, optional): Keeping only n users. Defaults to 150.
+
+    Returns:
+        pd.DataFrame: Sampled users
+    """
+    user_df = user_df[user_df['rating'] != 0]
+    user_counts = user_df['user_id'].value_counts()
+    filtered_users = user_counts[user_counts.between(min_reviews, max_reviews)].index
+    sampled_users = filtered_users.to_series().sample(n=n_users, random_state=42)
+    return user_df[user_df['user_id'].isin(sampled_users)]
